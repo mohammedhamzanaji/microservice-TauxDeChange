@@ -55,18 +55,14 @@ public class OperationDeChangeController {
         return ResponseEntity.created(location).build(); // retourne l'uri correspondant à l'operation de change avec le bon id
     }
 
-    @GetMapping(value = "OperationDeChange/de/{de}/a/{a}/date/{date}")
-    public TauxDeChange getTaux(@PathVariable String de, @PathVariable String a, @PathVariable String date) {
-
-        Map<String, String> uriVariables = new HashMap<>();
-        uriVariables.put("de", de);
-        uriVariables.put("a", a);
-        uriVariables.put("date", date);
-        String url = "http://localhost:9090/TauxDeChange/de/{de}/a/{a}/date/{date}";
+    @GetMapping(value = "OperationDeChange/fromRate/{id}")
+    public TauxDeChange getTaux(@PathVariable int id) {
+        Map<String, Integer> uriVariables = new HashMap<>();
+        uriVariables.put("id", id);
+        String url = "http://localhost:9090/TauxDeChange/{id}";
         RestTemplate restTemplate = new RestTemplate();
         TauxDeChange taux1 = restTemplate.getForObject(url, TauxDeChange.class, uriVariables);
         return taux1;
-
     }
 
 }
